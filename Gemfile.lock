@@ -44,6 +44,8 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.6)
+    climate_control (0.0.4)
+      activesupport (>= 3.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.4)
     database_cleaner (1.5.3)
@@ -162,6 +164,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.9.4)
   bcrypt (~> 3.1.7)
+  climate_control (~> 0.0.3)
   database_cleaner (~> 1.5, >= 1.5.3)
   factory_girl_rails (~> 4.8)
   figaro (~> 1.1, >= 1.1.1)
