@@ -20,6 +20,8 @@ describe JwToken do
         expect(JwToken.decode(token)).to eq data
        end
     end
+
+    it "raises error when token is expired"
   end
 
   def with_modified_env(options, &block)
