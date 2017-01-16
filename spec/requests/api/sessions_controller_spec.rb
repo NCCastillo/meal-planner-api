@@ -24,9 +24,7 @@ describe Api::V1::SessionsController, type: :request do
 
         post "/api/v1/login", params: user_params, headers: headers
 
-        results = JSON.parse(response.body)
-
-        expect(results["jwt"]).to eq token
+        expect(json["jwt"]).to eq token
       end
     end
 
@@ -44,9 +42,7 @@ describe Api::V1::SessionsController, type: :request do
 
         post "/api/v1/login", params: user_params, headers: headers
 
-        results = JSON.parse(response.body)
-
-        expect(results["error"]).to eq "Invalid credentials"
+        expect(json["error"]).to eq "Invalid credentials"
       end
     end
   end
