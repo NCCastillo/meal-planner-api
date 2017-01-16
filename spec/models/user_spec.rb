@@ -17,7 +17,7 @@ describe User, type: :model do
       it "returns false" do 
         user = User.new(email: "john.com", password: "test", password_confirmation: "test")
         
-        expect(user.invalid?).to be true 
+        expect(user.valid?).to be false 
       end
     end
 
@@ -25,7 +25,7 @@ describe User, type: :model do
       it "returns false" do 
         user = User.new(email: "john@examplecom", password: "test", password_confirmation: "test")
         
-        expect(user.invalid?).to be true 
+        expect(user.valid?).to be false 
       end
     end
   end
