@@ -11,7 +11,7 @@ module Api
 
           render json: { jwt: jwt }
         else
-          render status: 401, json: { error: "Invalid credentials" }
+          render status: 401, json: { errors: ["Invalid credentials"] }
         end
       end
 
