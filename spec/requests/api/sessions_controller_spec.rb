@@ -42,7 +42,7 @@ describe Api::V1::SessionsController, type: :request do
 
         post "/api/v1/login", params: user_params, headers: headers
 
-        expect(json["error"]).to eq "Invalid credentials"
+        expect(json["errors"]).to eq ["Invalid credentials"]
       end
     end
   end

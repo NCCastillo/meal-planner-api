@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113030558) do
+ActiveRecord::Schema.define(version: 20170210222039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "meal_ingredients", force: :cascade do |t|
+    t.integer  "meal_id"
+    t.integer  "ingredient_id"
+    t.string   "amount"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["ingredient_id"], name: "index_meal_ingredients_on_ingredient_id", using: :btree
+    t.index ["meal_id"], name: "index_meal_ingredients_on_meal_id", using: :btree
+  end
+
+  create_table "meals", force: :cascade do |t|
+    t.text     "direction"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "meal_id"
+    t.string   "week_of"
+    t.string   "day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_menus_on_meal_id", using: :btree
+    t.index ["user_id"], name: "index_menus_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
