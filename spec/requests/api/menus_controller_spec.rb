@@ -1,18 +1,18 @@
 require "rails_helper"
 
 describe Api::V1::MenusController, type: :request do 
+  let(:user) { FactoryGirl.create(:user) }
+  let(:token) { JwToken.encode({user: user.id}) }
+  let(:headers) { { 'Accept' => 'application/json', "Authorization" => "Bearer #{token}" } }
+
   context "POST /menus" do 
     let(:menu_params) do 
       { menu: 
         { 
-          week_of: "20170205_20170211"
+          week_of: "2017-02-05_2017-02-11"
         }
       }
     end
-
-    let(:user) { FactoryGirl.create(:user) }
-    let(:token) { JwToken.encode({user: user.id}) }
-    let(:headers) { { 'Accept' => 'application/json', "Authorization" => "Bearer #{token}" } }
 
     context "without a valid JWT token" do 
       it "returns unauthorized" do 
@@ -28,7 +28,7 @@ describe Api::V1::MenusController, type: :request do
     context "with a valid JWT token" do 
       it "returns a successful response" do 
         post "/api/v1/menus", params: menu_params, headers: headers
-        
+
         expect(response.status).to eq 201
       end
     end
@@ -54,10 +54,25 @@ describe Api::V1::MenusController, type: :request do
   end
 
   context "GET /current_menu" do 
-    it "return a current menu" do 
-      get "/api/v1/menus/current_menu", headers: headers
+    context "when there is a current menu available" do 
+      it "return the current menu" do 
+        menu = FactoryGirl.create(:menu, week_of: "#{Date.today.beginning_of_week}_#{Date.today.end_of_week}", user: user)
+        expected_results = [{ "id"=>menu.id, "week_of"=>"#{menu.week_of}", "menu_items"=>[] }]
 
-      expect(json["current_menu"]).to eq "stuff here"
+        get "/api/v1/menus/current_menu", headers: headers
+        
+        expect(json["menus"]).to eq expected_results
+      end
+    end
+
+    context "when there is no current menu available" do 
+      it "returns a blank []" do 
+        menu = FactoryGirl.create(:menu, week_of: "2017-01-22_2017-01-28", user: user)
+
+        get "/api/v1/menus/current_menu", headers: headers
+        
+        expect(json["menus"]).to eq []
+      end
     end
   end
 end

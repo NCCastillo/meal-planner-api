@@ -13,9 +13,9 @@ module Api
       end
 
       def current_menu
-        # current_user.current_menu
-        # render json: Menu.first
-        render json: {}
+        current_menu = current_user.current_menu
+        
+        render json: current_menu
       end
 
       private
