@@ -12,7 +12,7 @@ gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
-gem 'active_model_serializers', '~> 0.9.4'
+gem 'active_model_serializers', '~> 0.9.6'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt', '~> 1.5', '>= 1.5.4'
 gem 'figaro', '~> 1.1', '>= 1.1.1'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210222039) do
+ActiveRecord::Schema.define(version: 20170211184242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,14 +38,22 @@ ActiveRecord::Schema.define(version: 20170210222039) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "menu_items", force: :cascade do |t|
+    t.string   "menu_option"
+    t.integer  "meal_id"
+    t.integer  "menu_id"
+    t.string   "day"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["meal_id"], name: "index_menu_items_on_meal_id", using: :btree
+    t.index ["menu_id"], name: "index_menu_items_on_menu_id", using: :btree
+  end
+
   create_table "menus", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "meal_id"
     t.string   "week_of"
-    t.string   "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["meal_id"], name: "index_menus_on_meal_id", using: :btree
     t.index ["user_id"], name: "index_menus_on_user_id", using: :btree
   end
 
@@ -56,4 +64,9 @@ ActiveRecord::Schema.define(version: 20170210222039) do
     t.string "password_digest"
   end
 
+  add_foreign_key "meal_ingredients", "ingredients"
+  add_foreign_key "meal_ingredients", "meals"
+  add_foreign_key "menu_items", "meals"
+  add_foreign_key "menu_items", "menus"
+  add_foreign_key "menus", "users"
 end
