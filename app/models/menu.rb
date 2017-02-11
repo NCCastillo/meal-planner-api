@@ -1,4 +1,4 @@
 class Menu < ApplicationRecord
   belongs_to :user
-  belongs_to :meal
+  has_many :menu_items
 end
