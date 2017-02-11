@@ -1,5 +1,5 @@
-# FactoryGirl.define do
-#   factory :ingredient do
-#     name "MyString"
-#   end
-# end
+FactoryGirl.define do
+  factory :ingredient do
+    name "MyString"
+  end
+end
