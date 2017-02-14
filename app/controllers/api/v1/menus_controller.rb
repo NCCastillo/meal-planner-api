@@ -6,7 +6,7 @@ module Api
         menu.user_id = current_user.id
 
         if menu.save
-          render status: 201
+          render json: menu, status: 201
         else
           render json: { errors: menu.errors.full_messages}, status: 422
         end
@@ -14,7 +14,7 @@ module Api
 
       def current_menu
         current_menu = current_user.current_menu
-        
+
         render json: current_menu
       end
 

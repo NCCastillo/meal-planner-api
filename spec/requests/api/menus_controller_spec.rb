@@ -45,12 +45,20 @@ describe Api::V1::MenusController, type: :request do
         
         expect(response.status).to eq 201
       end
-    end
-  end
 
-  context "with invalid attributes" do 
-    it "returns status 422"
-    it "returns error messages"
+      it "returns serialize Menu" do 
+        post "/api/v1/menus", params: menu_params, headers: headers
+        
+        results = json["menu"]
+
+        expect(results["week_of"]).to eq menu_params[:menu][:week_of]
+      end
+    end
+
+    context "with invalid attributes" do 
+      it "returns status 422"
+      it "returns error messages"
+    end
   end
 
   context "GET /current_menu" do 
